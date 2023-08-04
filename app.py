@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-import supabase
+from supabase import create_client, Client
 
 # Fetch Supabase URL and key from environment variables
 supabase_url = os.environ.get('SUPABASE_URL')
