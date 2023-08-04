@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 from supabase import create_client, Client
+from io import BytesIO
 
 supabase_url = os.environ.get("SUPABASE_URL")
 supabase_key = os.environ.get("SUPABASE_KEY")
@@ -36,9 +37,10 @@ def main():
 
     if file is not None:
         destination = file.name
-        with file as f:
-            res = supabase.storage.from_('streamlit-supabase').upload(destination, f)
-            st.write('File uploaded successfully!')
+        # Read the content of the uploaded file using BytesIO
+        content = BytesIO(file.read())
+        res = supabase.storage.from_('streamlit-supabase').upload(destination, content)
+        st.write('File uploaded successfully!')
             
 def login(email, password):
     # Login with email and password
