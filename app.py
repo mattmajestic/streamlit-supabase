@@ -1,7 +1,5 @@
 import streamlit as st
 import os
-import base64
-import requests
 import supabase
 
 # Fetch Supabase URL and key from environment variables
@@ -12,38 +10,45 @@ supabase_key = os.environ.get('SUPABASE_KEY')
 supabase_client = supabase.create_client(supabase_url, supabase_key)
 
 def main():
-    st.title('Supabase File Upload')
+    st.title('Supabase User Authentication')
 
-    # Get the file URLs or file uploads from the user
-    uploaded_files = st.file_uploader("Choose CSV files", accept_multiple_files=True)
+    # Check if the user is authenticated
+    user = st.session_state.user
+    if user:
+        st.write(f'Logged in as: {user["email"]}')
+        st.button('Logout', on_click=logout)
+    else:
+        # Show login form
+        email = st.text_input('Email')
+        password = st.text_input('Password', type='password')
+        login_btn = st.button('Login', on_click=login, args=(email, password))
 
-    if uploaded_files:
-        for file in uploaded_files:
-            st.write(f'File name: {file.name}')
+        # Show signup form
+        if not login_btn:
+            st.text('Or')
+            new_email = st.text_input('New Email')
+            new_password = st.text_input('New Password', type='password')
+            signup_btn = st.button('Signup', on_click=signup, args=(new_email, new_password))
 
-            # Read file content
-            file_content = file.read()
+def login(email, password):
+    # Login with email and password
+    supabase_response = supabase_client.auth.sign_in(email, password)
+    if not supabase_response['error']:
+        st.session_state.user = supabase_response['user']
+        st.experimental_rerun()
 
-            # Get the file name and extension
-            file_name = file.name
-            file_ext = file_name.split('.')[-1]
+def signup(email, password):
+    # Signup with email and password
+    supabase_response = supabase_client.auth.sign_up(email, password)
+    if not supabase_response['error']:
+        st.session_state.user = supabase_response['user']
+        st.experimental_rerun()
 
-            # Encode file content in base64
-            file_base64 = base64.b64encode(file_content).decode()
-
-            # Get the Supabase storage bucket instance
-            storage_bucket = supabase_client.storage
-
-            # Upload file to Supabase
-            file_metadata = {
-                'name': file_name,
-                'type': f'application/csv'  # You can change the content type based on the file type you are uploading
-            }
-            supabase_response = storage_bucket.upload(file_name, file_base64, file_metadata)
-            if supabase_response['error']:
-                st.error(f'File upload failed for {file.name}.')
-            else:
-                st.success(f'File {file.name} uploaded successfully.')
+def logout():
+    # Logout user
+    supabase_client.auth.sign_out()
+    st.session_state.user = None
+    st.experimental_rerun()
 
 if __name__ == '__main__':
     main()
