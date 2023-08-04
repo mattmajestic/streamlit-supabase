@@ -5,9 +5,12 @@ import requests
 app = Flask(__name__)
 CORS(app)
 
-# Replace these with your actual Supabase project URL and API key
-supabase_url = 'https://yourproject.supabase.co'
-supabase_key = 'your_supabase_api_key'
+# Fetch Supabase URL and key from environment variables
+supabase_url = os.environ.get('SUPABASE_URL')
+supabase_key = os.environ.get('SUPABASE_KEY')
+
+# Initialize Supabase client
+supabase_client = supabase.Client(supabase_url, supabase_key)
 
 def create_user(email, password):
     endpoint = f'{supabase_url}/auth/v1/signup'
