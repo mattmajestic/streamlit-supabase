@@ -6,8 +6,9 @@ import supabase
 supabase_url = os.environ.get('SUPABASE_URL')
 supabase_key = os.environ.get('SUPABASE_KEY')
 
-# Initialize Supabase client
-supabase_client = supabase.create_client(supabase_url, supabase_key)
+supabase_url: str = os.environ.get("SUPABASE_URL")
+supabase_key: str = os.environ.get("SUPABASE_KEY")
+supabase: Client = create_client(supabase_url, supabase_key)
 
 def main():
     st.title('Supabase User Authentication')
@@ -36,7 +37,7 @@ def main():
 
 def login(email, password):
     # Login with email and password
-    supabase_response = supabase_client.auth.sign_in(email, password)
+    supabase_response = supabase.auth.sign_in(email, password)
     if not supabase_response['error']:
         st.session_state.user = supabase_response['user']
         st.experimental_rerun()
@@ -47,14 +48,14 @@ def signup(email, password):
         'email': email,
         'password': password
     }
-    supabase_response = supabase_client.auth.sign_up(signup_data)
+    supabase_response = supabase.auth.sign_up(signup_data)
     if not supabase_response['error']:
         st.session_state.user = supabase_response['user']
         st.experimental_rerun()
         
 def logout():
     # Logout user
-    supabase_client.auth.sign_out()
+    supabase.auth.sign_out()
     st.session_state.user = None
     st.experimental_rerun()
 
