@@ -43,11 +43,15 @@ def login(email, password):
 
 def signup(email, password):
     # Signup with email and password
-    supabase_response = supabase_client.auth.sign_up(email, password)
+    signup_data = {
+        'email': email,
+        'password': password
+    }
+    supabase_response = supabase_client.auth.sign_up(signup_data)
     if not supabase_response['error']:
         st.session_state.user = supabase_response['user']
         st.experimental_rerun()
-
+        
 def logout():
     # Logout user
     supabase_client.auth.sign_out()
