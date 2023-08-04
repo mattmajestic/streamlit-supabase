@@ -37,10 +37,16 @@ def main():
 
     if file is not None:
         destination = file.name
-        # Read the content of the uploaded file using BytesIO
-        content = BytesIO(file.read())
-        res = supabase.storage.from_('streamlit-supabase').upload(destination, content)
+        # Save the uploaded file temporarily
+        with open(destination, 'wb') as f:
+            f.write(file.read())
+        
+        # Upload the file from the temporary file path to Supabase storage
+        res = supabase.storage.from_('streamlit-supabase').upload(destination, destination)
         st.write('File uploaded successfully!')
+        
+        # Remove the temporary file
+        os.remove(destination)
             
 def login(email, password):
     # Login with email and password
