@@ -32,7 +32,7 @@ def main():
             file_base64 = base64.b64encode(file_content).decode()
 
             # Get the Supabase storage bucket instance
-            storage_bucket = supabase_client.storage().from_url("streamlit-supabase")
+            storage_bucket = supabase_client.storage
 
             # Upload file to Supabase
             file_metadata = {
