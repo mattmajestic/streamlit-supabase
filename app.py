@@ -7,7 +7,7 @@ supabase_key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(supabase_url, supabase_key)
 
 def main():
-    st.title('Supabase User Authentication')
+    st.title('Supabase User Authentication and File Upload')
 
     # Initialize session_state if not present
     if 'user' not in st.session_state:
@@ -30,6 +30,16 @@ def main():
             new_password = st.text_input('New Password', type='password')
             signup_btn = st.button('Signup', on_click=signup, args=(new_email, new_password))
 
+    # File Upload Section
+    st.header('File Upload')
+    file = st.file_uploader('Choose a file')
+
+    if file is not None:
+        destination = file.name
+        with file as f:
+            res = supabase.storage.from_('streamlit-supabase').upload(destination, f)
+            st.write('File uploaded successfully!')
+            
 def login(email, password):
     # Login with email and password
     data = supabase.auth.sign_in_with_password({"email": email, "password": password})
