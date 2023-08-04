@@ -31,12 +31,15 @@ def main():
             # Encode file content in base64
             file_base64 = base64.b64encode(file_content).decode()
 
+            # Get the Supabase storage bucket instance
+            storage_bucket = supabase_client.storage().from_url("streamlit-supabase")
+
             # Upload file to Supabase
             file_metadata = {
                 'name': file_name,
                 'type': f'application/csv'  # You can change the content type based on the file type you are uploading
             }
-            supabase_response = supabase_client.storage().upload(file_name, file_base64, file_metadata)
+            supabase_response = storage_bucket.upload(file_name, file_base64, file_metadata)
             if supabase_response['error']:
                 st.error(f'File upload failed for {file.name}.')
             else:
