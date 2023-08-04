@@ -12,6 +12,10 @@ supabase_client = supabase.create_client(supabase_url, supabase_key)
 def main():
     st.title('Supabase User Authentication')
 
+    # Initialize session_state if not present
+    if 'user' not in st.session_state:
+        st.session_state.user = None
+
     # Check if the user is authenticated
     user = st.session_state.user
     if user:
