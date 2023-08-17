@@ -36,6 +36,8 @@ def main():
     file = st.file_uploader('Choose a file')
 
     if file is not None:
+        bucket_files = supabase.storage.list_buckets()
+        st.write(bucket_files)
         destination = file.name
         # Save the uploaded file temporarily
         with open(destination, 'wb') as f:
