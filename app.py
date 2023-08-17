@@ -43,8 +43,7 @@ def main():
         with open(destination, 'wb') as f:
             f.write(file.read())
         
-        with open(source, 'rb+') as f:
-          res = supabase.storage.from_('streamlit-supabase').upload(destination, f)
+        res = supabase.storage.from_('streamlit-supabase').upload(destination, destination)
         st.write('File uploaded successfully!')
         
         # Remove the temporary file
