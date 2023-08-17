@@ -41,8 +41,8 @@ def main():
         with open(destination, 'wb') as f:
             f.write(file.read())
         
-        # Upload the file from the temporary file path to Supabase storage
-        res = supabase.storage.from_('streamlit-supabase').upload(destination, destination)
+        with open(source, 'rb+') as f:
+          res = supabase.storage.from_('streamlit-supabase').upload(destination, f)
         st.write('File uploaded successfully!')
         
         # Remove the temporary file
