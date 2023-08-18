@@ -4,7 +4,7 @@ from supabase import create_client, Client
 from io import BytesIO
 
 # Set page title and favicon to an emoji
-st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")
+st.set_page_config(page_title="🚀 Streamlit Supabase", page_icon="🔒")
 
 supabase_url = os.environ.get("SUPABASE_URL")
 supabase_key = os.environ.get("SUPABASE_KEY")
@@ -26,13 +26,13 @@ def main():
         col1, col2 = st.columns(2)
         with col1:
             with st.expander('Login'):
-                email = st.text_input('Email')
-                password = st.text_input('Password', type='password')
+                email = st.text_input('Email', key='login_email')
+                password = st.text_input('Password', type='password', key='login_password')
                 login_btn = st.button('Login', on_click=login, args=(email, password))
         with col2:
             with st.expander('Sign Up'):
-                new_email = st.text_input('Email')
-                new_password = st.text_input('Password', type='password')
+                new_email = st.text_input('Email', key='signup_email')
+                new_password = st.text_input('Password', type='password', key='signup_password')
                 signup_btn = st.button('Sign Up', on_click=signup, args=(new_email, new_password))
 
     # File Upload Section
@@ -52,6 +52,12 @@ def main():
         
         # Remove the temporary file
         os.remove(destination)
+
+    # README Documentation Expander
+    with st.expander("README Documentation"):
+        with open("README.md", "r") as readme_file:
+            readme_content = readme_file.read()
+        st.markdown(readme_content)
             
 def login(email, password):
     # Login with email and password
