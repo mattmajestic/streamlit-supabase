@@ -3,13 +3,16 @@ import os
 from supabase import create_client, Client
 from io import BytesIO
 
+# Set page title and favicon to an emoji
+st.set_page_config(page_title="🚀 Streamlit Supabase", page_icon="🔒")
+
 supabase_url = os.environ.get("SUPABASE_URL")
 supabase_key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(supabase_url, supabase_key)
 
 def main():
-    st.title('Supabase User Authentication and File Upload')
-
+    st.title('🚀 Streamlit Supabase')
+    
     # Initialize session_state if not present
     if 'user' not in st.session_state:
         st.session_state.user = None
@@ -17,19 +20,19 @@ def main():
     # Check if the user is authenticated
     user = st.session_state.user
     if user:
-        st.write(f'Logged in as: {user["email"]}')
+        st.success(f'🎉 Logged in as: {user["email"]}')
     else:
-        # Show login form
-        email = st.text_input('Email')
-        password = st.text_input('Password', type='password')
-        login_btn = st.button('Login', on_click=login, args=(email, password))
-
-        # Show signup form
-        if not login_btn:
-            st.text('Or')
-            new_email = st.text_input('New Email')
-            new_password = st.text_input('New Password', type='password')
-            signup_btn = st.button('Signup', on_click=signup, args=(new_email, new_password))
+        # Show login and signup forms side by side in an expander
+        with st.expander('Login / Sign Up'):
+            col1, col2 = st.columns(2)
+            with col1:
+                email = st.text_input('Email')
+                password = st.text_input('Password', type='password')
+                login_btn = st.button('Login', on_click=login, args=(email, password))
+            with col2:
+                new_email = st.text_input('New Email')
+                new_password = st.text_input('New Password', type='password')
+                signup_btn = st.button('Sign Up', on_click=signup, args=(new_email, new_password))
 
     # File Upload Section
     st.header('File Upload')
@@ -44,7 +47,7 @@ def main():
             f.write(file.read())
         
         res = supabase.storage.from_('streamlit-supabase').upload(destination, destination)
-        st.write('File uploaded successfully!')
+        st.success('🚀 File uploaded successfully!')
         
         # Remove the temporary file
         os.remove(destination)
