@@ -20,7 +20,9 @@ def main():
     # Check if the user is authenticated
     user = st.session_state.user
     if user:
-        st.success(f'🎉 Logged in as: {user["email"]}')
+        with st.expander('User Information'):
+            st.write(f'🎉 Logged in as: {user["email"]}')
+            st.write(f'Username: {user["user_metadata"]["full_name"]}')
     else:
         # Show login and signup forms side by side in two expanders
         col1, col2 = st.columns(2)
@@ -62,6 +64,7 @@ def main():
 def login(email, password):
     # Login with email and password
     data = supabase.auth.sign_in_with_password({"email": email, "password": password})
+    st.session_state.user = data['user']  # Update session state with user info
 
 def signup(email, password):
     # Signup with email and password
