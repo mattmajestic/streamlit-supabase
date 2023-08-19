@@ -11,18 +11,19 @@ supabase_key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(supabase_url, supabase_key)
 
 def main():
-    st.title('🚀 Streamlit Supabase')
-    
+    st.title('Streamlit Supabase')
+
     # Initialize session_state if not present
     if 'user' not in st.session_state:
-        st.session_state.user = None
+        st.session_state.user = {}
 
     # Check if the user is authenticated
     user = st.session_state.user
-    if user:
+    if user and 'email' in user:
         with st.expander('User Information'):
-            st.write(f'🎉 Logged in as: {user["email"]}')
-            st.write(f'Username: {user["user_metadata"]["full_name"]}')
+            st.success(f'🎉 Logged in as: {user["email"]}')
+            if 'full_name' in user.get("user_metadata", {}):
+                st.write(f'Username: {user["user_metadata"]["full_name"]}')
     else:
         # Show login and signup forms side by side in two expanders
         col1, col2 = st.columns(2)
@@ -42,8 +43,6 @@ def main():
     file = st.file_uploader('Choose a file')
 
     if file is not None:
-        bucket_files = supabase.storage.list_buckets()
-        st.write(bucket_files)
         destination = file.name
         # Save the uploaded file temporarily
         with open(destination, 'wb') as f:
@@ -64,7 +63,10 @@ def main():
 def login(email, password):
     # Login with email and password
     data = supabase.auth.sign_in_with_password({"email": email, "password": password})
-    st.session_state.user = data['user']  # Update session state with user info
+    if 'user' in data:
+        st.session_state.user = data['user']
+    else:
+        st.warning("Login failed. Please check your credentials.")
 
 def signup(email, password):
     # Signup with email and password
