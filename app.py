@@ -100,7 +100,8 @@ def main():
     st.header('File Upload')
     upload_file()
 
-    with st.expander("Database View")
+    # Database
+    with st.expander("Database View"):
         retrieve_db()
 
     # README Documentation Expander
