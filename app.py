@@ -21,10 +21,7 @@ def add_database_record():
     formatted_date = now.strftime("%Y-%m-%d %H:%M:%S")
 
     
-    data, count = supabase
-    .table('streamlit')
-    .insert({"id": unique_id, "created_at": formatted_date})
-    .execute()
+    data = supabase.table('streamlit').insert({"id": unique_id, "created_at": formatted_date}).execute()
     
     # Check if the insert was successful
     if response.status_code == 200:
