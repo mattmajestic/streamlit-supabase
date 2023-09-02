@@ -77,8 +77,27 @@ def signup(email, password):
     else:
         st.warning("Signup failed. Please try again.")
 
+def main():
+    st.title('Streamlit Supabase')
+
+    # Check if the user is authenticated
+    user = st.session_state.user
+    if user and 'email' in user:
+        show_user_info(user)
+    else:
+        show_login_signup_forms()
+
+    # File Upload Section
+    st.header('File Upload')
+    upload_file()
+
+    # README Documentation Expander
+    with st.expander("README Documentation"):
+        with open("README.md", "r") as readme_file:
+            readme_content = readme_file.read()
+        st.markdown(readme_content)
+
 # Trigger all necessary functions at the end
 if __name__ == '__main__':
-    st.title('Streamlit Supabase')
     main()
     add_database_record()
