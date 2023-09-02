@@ -2,6 +2,7 @@ import streamlit as st
 import os
 from supabase import create_client
 from datetime import datetime
+import random
 
 # Supabase setup
 supabase_url = os.environ.get("SUPABASE_URL")
@@ -12,15 +13,23 @@ supabase = create_client(supabase_url, supabase_key)
 if 'user' not in st.session_state:
     st.session_state.user = {}
 
+import random
+
+def generate_short_unique_id():
+    now = datetime.now()
+    timestamp = now.strftime("%Y%m%d%H%M%S")
+    random_number = random.randint(1, 9999)
+    unique_id = f"{timestamp}{random_number}"
+    return unique_id
+
 def add_database_record():
     # Generate a unique ID using datetime.now()
     now = datetime.now()
-    unique_id = now.strftime("%Y%m%d%H%M%S%f")
+    unique_id = generate_short_unique_id()
     
     # Create the data dictionary with 'id' and 'created_at' timestamp
     formatted_date = now.strftime("%Y-%m-%d %H:%M:%S")
 
-    
     data = supabase.table('streamlit').insert({"id": unique_id, "created_at": formatted_date}).execute()
     
     # Check if the insert was successful
