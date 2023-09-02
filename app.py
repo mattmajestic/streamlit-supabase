@@ -19,10 +19,11 @@ def add_database_record():
     
     # Create the data dictionary with 'id' and 'created_at' timestamp
     formatted_date = now.strftime("%Y-%m-%d %H:%M:%S")
-    data = {'id': unique_id, 'created_at': formatted_date}
-    
-    # Insert the data into the "streamlit" table
-    response = supabase.table('streamlit').upsert([data], ['id'])
+
+    data, count = supabase
+        .table('streamlit')
+        .insert({"id": unique_id, "created_at": formatted_date})
+        .execute()
     
     # Check if the insert was successful
     if response.status_code == 200:
