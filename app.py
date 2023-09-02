@@ -13,7 +13,9 @@ supabase = create_client(supabase_url, supabase_key)
 if 'user' not in st.session_state:
     st.session_state.user = {}
 
-import random
+def retrieve_db():
+    st_db = supabase.table('streamlit').select("*").execute()
+    st.write(st_db)
 
 def generate_short_unique_id():
     now = datetime.now()
@@ -97,6 +99,9 @@ def main():
     # File Upload Section
     st.header('File Upload')
     upload_file()
+
+    with st.expander("Database View")
+        retrieve_db()
 
     # README Documentation Expander
     with st.expander("README Documentation"):
