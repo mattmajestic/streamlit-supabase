@@ -1,38 +1,16 @@
 import streamlit as st
 import os
 from supabase import create_client
-
-# Set page title and favicon to an emoji
-st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")
+from datetime import datetime
 
 # Supabase setup
 supabase_url = os.environ.get("SUPABASE_URL")
 supabase_key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(supabase_url, supabase_key)
 
-def main():
-    st.title('Streamlit Supabase')
-
-    # Initialize session_state if not present
-    if 'user' not in st.session_state:
-        st.session_state.user = {}
-
-    # Check if the user is authenticated
-    user = st.session_state.user
-    if user and 'email' in user:
-        show_user_info(user)
-    else:
-        show_login_signup_forms()
-
-    # File Upload Section
-    st.header('File Upload')
-    upload_file()
-
-    # README Documentation Expander
-    with st.expander("README Documentation"):
-        with open("README.md", "r") as readme_file:
-            readme_content = readme_file.read()
-        st.markdown(readme_content)
+# Initialize session_state if not present
+if 'user' not in st.session_state:
+    st.session_state.user = {}
 
 def add_database_record():
     # Generate a unique ID using datetime.now()
@@ -51,7 +29,6 @@ def add_database_record():
         st.success('🚀 Record added successfully!')
     else:
         st.error('❌ Error adding record to the database')
-    add_database_record()
 
 def show_user_info(user):
     with st.expander('User Information'):
@@ -100,5 +77,8 @@ def signup(email, password):
     else:
         st.warning("Signup failed. Please try again.")
 
+# Trigger all necessary functions at the end
 if __name__ == '__main__':
+    st.title('Streamlit Supabase')
     main()
+    add_database_record()
