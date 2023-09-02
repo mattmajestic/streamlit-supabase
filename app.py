@@ -51,7 +51,7 @@ def add_database_record():
         st.success('🚀 Record added successfully!')
     else:
         st.error('❌ Error adding record to the database')
-add_database_record()
+    add_database_record()
 
 def show_user_info(user):
     with st.expander('User Information'):
