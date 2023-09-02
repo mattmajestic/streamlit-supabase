@@ -30,14 +30,9 @@ def add_database_record():
     # Create the data dictionary with 'id' and 'created_at' timestamp
     formatted_date = now.strftime("%Y-%m-%d %H:%M:%S")
 
-    _, error = supabase.table('streamlit').insert({"id": unique_id, "created_at": formatted_date}).execute()
+    data = supabase.table('streamlit').insert({"id": unique_id, "created_at": formatted_date}).execute()
     
-    # Check if the insert was successful
-    if response.status_code == 200:
-        st.success('🚀 Record added successfully!')
-    else:
-        st.error('❌ Error adding record to the database')
-
+    st.write(data)
 
 def show_user_info(user):
     with st.expander('User Information'):
