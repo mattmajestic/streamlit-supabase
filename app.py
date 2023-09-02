@@ -55,6 +55,7 @@ def show_login_signup_forms():
 
 def upload_file():
     file = st.file_uploader('Choose a file')
+    st.write(supabase.storage.list_buckets())
     if file is not None:
         destination = file.name
         with open(destination, 'wb') as f:
