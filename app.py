@@ -81,6 +81,7 @@ def signup(email, password):
 
 def main():
     st.title('Streamlit Supabase')
+    add_database_record()
 
     # Check if the user is authenticated
     user = st.session_state.user
@@ -102,4 +103,3 @@ def main():
 # Trigger all necessary functions at the end
 if __name__ == '__main__':
     main()
-    add_database_record()
