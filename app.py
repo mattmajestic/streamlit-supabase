@@ -74,16 +74,6 @@ def signup(email, password):
 def main():
     st.title('Streamlit Supabase 🔒')
 
-    # Show the supabase content
-    supabase_expander = st.expander("Supabase Backend 🚄 ")
-    with supabase_expander:
-        st.balloons()
-        # Replace with supabase fetch
-        st_db = supabase.table('streamlit').select("*").execute()
-        st_df = pd.DataFrame(st_db.data)
-        st.write("streamlit table hosted in Supabase ")
-        st.dataframe(st_df)
-
     # README Documentation Expander
     with st.expander("README Documentation 📝"):
         with open("README.md", "r") as readme_file:
@@ -118,6 +108,16 @@ def main():
     # File Upload Section
     st.header('File Upload 📂')
     upload_file()
+
+    # Show the supabase content
+    supabase_expander = st.expander("Supabase Backend 🚄 ")
+    with supabase_expander:
+        st.balloons()
+        # Replace with supabase fetch
+        st_db = supabase.table('streamlit').select("*").execute()
+        st_df = pd.DataFrame(st_db.data)
+        st.write("streamlit table hosted in Supabase ")
+        st.dataframe(st_df)
 
 if __name__ == '__main__':
     main()
