@@ -86,12 +86,14 @@ def main():
     with st.expander("README Documentation 📝"):
         with open("README.md", "r") as readme_file:
             readme_content = readme_file.read()
+        st.write("")
         st.markdown(readme_content)
         os_platform = platform.system()
+        distribution = platform.linux_distribution()
         if is_docker_installed():
-            st.write(f"The operating system is: {os_platform} with Docker installed 🐳")
+            st.write(f"The operating system is: {os_platform} of distribution: {distribution[0]} {distribution[1]} with Docker installed 🐳")
         else:
-            st.write(f"The operating system is: {os_platform} without Docker installed 🐳")
+            st.write(f"The operating system is: {os_platform} of distribution: {distribution[0]} {distribution[1]} without Docker installed 🐳")
 
     # Show the author content
     author_expander = st.expander("Author's Gthub Projects 🌏")
