@@ -30,12 +30,12 @@ def is_docker_installed():
 def show_login_signup_forms():
     col1, col2 = st.columns(2)
     with col1:
-        with st.expander('Login'):
+        with st.expander('Login 🔒'):
             email = st.text_input('Email', key='login_email')
             password = st.text_input('Password', type='password', key='login_password')
             login_btn = st.button('Login', on_click=login, args=(email, password))
     with col2:
-        with st.expander('Sign Up'):
+        with st.expander('Sign Up 📝'):
             new_email = st.text_input('Email', key='signup_email')
             new_password = st.text_input('Password', type='password', key='signup_password')
             signup_btn = st.button('Sign Up', on_click=signup, args=(new_email, new_password))
@@ -110,7 +110,7 @@ def main():
     else:
         show_login_signup_forms()
     # File Upload Section
-    st.header('File Upload')
+    st.header('File Upload 📂')
     upload_file()
 
 if __name__ == '__main__':
