@@ -1,0 +1,5 @@
+[theme]
+base="dark" # Set to "light" for light mode
+
+[server]
+wideMode=true # Set to false for normal mode
