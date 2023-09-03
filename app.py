@@ -69,7 +69,7 @@ def signup(email, password):
         st.warning("Signup failed. Please try again.")
 
 def main():
-    st.title('Streamlit Supabase ')
+    st.title('Streamlit Supabase 🔒')
 
     # Show the supabase content
     supabase_expander = st.expander("Supabase Backend 🚄 ")
@@ -87,9 +87,9 @@ def main():
             readme_content = readme_file.read()
         st.markdown(readme_content)
         if is_docker_installed():
-            print("Docker is installed.")
+            st.write("Docker is installed 🐳")
         else:
-            print("Docker is not installed.")
+            st.write("Docker is not installed 🐳")
 
     # Show the author content
     author_expander = st.expander("Author's Gthub Projects 🌏")
