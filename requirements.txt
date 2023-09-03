@@ -6,3 +6,4 @@ supabase
 pandas
 requests
 docker
+distro

@@ -6,6 +6,8 @@ import requests
 import docker
 import subprocess
 import platform
+import distro
+
 
 # Set page title and favicon to an emoji
 st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")
@@ -89,11 +91,11 @@ def main():
         st.write("")
         st.markdown(readme_content)
         os_platform = platform.system()
-        distribution = platform.linux_distribution()
+        distribution_info = distro.linux_distribution(full_distribution_name=False)
         if is_docker_installed():
-            st.write(f"The operating system is: {os_platform} of distribution: {distribution[0]} {distribution[1]} with Docker installed 🐳")
+            st.write(f"The operating system is: {os_platform} of distribution: {distribution_info[0]} {distribution_info[1]} with Docker installed 🐳")
         else:
-            st.write(f"The operating system is: {os_platform} of distribution: {distribution[0]} {distribution[1]} without Docker installed 🐳")
+            st.write(f"The operating system is: {os_platform} of distribution: {distribution_info[0]} {distribution_info[1]} without Docker installed 🐳")
 
     # Show the author content
     author_expander = st.expander("Author's Gthub Projects 🌏")
