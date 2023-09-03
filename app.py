@@ -2,6 +2,7 @@ import streamlit as st
 import os
 from supabase import create_client
 import pandas as pd
+import requests
 
 # Set page title and favicon to an emoji
 st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")

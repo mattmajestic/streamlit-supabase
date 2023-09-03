@@ -4,3 +4,4 @@ requests
 streamlit
 supabase
 pandas
+requests
