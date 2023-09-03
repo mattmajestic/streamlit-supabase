@@ -72,20 +72,23 @@ def main():
         st.write("streamlit table hosted in Supabase ")
         st.dataframe(st_df)
 
-    # Initialize session_state if not present
-    if 'user' not in st.session_state:
-        st.session_state.user = {}
+    functions_expander = st.expander("Supabase functions for Streamlit 📈 ")
+    with functions_expander:
+        st.snow()
+        # Initialize session_state if not present
+        if 'user' not in st.session_state:
+            st.session_state.user = {}
 
-    # Check if the user is authenticated
-    user = st.session_state.user
-    if user and 'email' in user:
-        show_user_info(user)
-    else:
-        show_login_signup_forms()
+        # Check if the user is authenticated
+        user = st.session_state.user
+        if user and 'email' in user:
+            show_user_info(user)
+        else:
+            show_login_signup_forms()
 
-    # File Upload Section
-    st.header('File Upload')
-    upload_file()
+        # File Upload Section
+        st.header('File Upload')
+        upload_file()
 
     # README Documentation Expander
     with st.expander("README Documentation"):
