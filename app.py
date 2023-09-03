@@ -78,7 +78,15 @@ def main():
         with open("README.md", "r") as readme_file:
             readme_content = readme_file.read()
         st.markdown(readme_content)
-        st.write(print(os.environ))
+        # Create a Docker client
+        client = docker.from_env()
+        containers = client.containers.list()
+        st.write("Running Docker Containers:")
+        for container in containers:
+            st.write(f"Container ID: {container.id}")
+            st.write(f"Image: {container.attrs['Config']['Image']}")
+            st.write(f"Status: {container.status}")
+            st.write("-----------")
 
     # Show the author content
     author_expander = st.expander("Author's Gthub Projects 🌏")
