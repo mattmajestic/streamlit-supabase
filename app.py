@@ -4,6 +4,7 @@ from supabase import create_client
 import pandas as pd
 import requests
 import docker
+import subprocess
 
 # Set page title and favicon to an emoji
 st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")
@@ -18,6 +19,13 @@ def show_user_info(user):
         st.success(f'🎉 Logged in as: {user["email"]}')
         if 'full_name' in user.get("user_metadata", {}):
             st.write(f'Username: {user["user_metadata"]["full_name"]}')
+
+def is_docker_installed():
+    try:
+        subprocess.check_output(["docker", "--version"])
+        return True
+    except FileNotFoundError:
+        return False
 
 def show_login_signup_forms():
     col1, col2 = st.columns(2)
@@ -74,19 +82,14 @@ def main():
         st.dataframe(st_df)
 
     # README Documentation Expander
-    with st.expander("README Documentation"):
+    with st.expander("README Documentation 📝"):
         with open("README.md", "r") as readme_file:
             readme_content = readme_file.read()
         st.markdown(readme_content)
-        # Create a Docker client
-        client = docker.from_env()
-        containers = client.containers.list()
-        st.write("Running Docker Containers:")
-        for container in containers:
-            st.write(f"Container ID: {container.id}")
-            st.write(f"Image: {container.attrs['Config']['Image']}")
-            st.write(f"Status: {container.status}")
-            st.write("-----------")
+        if is_docker_installed():
+            print("Docker is installed.")
+        else:
+            print("Docker is not installed.")
 
     # Show the author content
     author_expander = st.expander("Author's Gthub Projects 🌏")
