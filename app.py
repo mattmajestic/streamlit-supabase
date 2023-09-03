@@ -58,7 +58,7 @@ def signup(email, password):
         st.warning("Signup failed. Please try again.")
 
 def main():
-    st.title('Streamlit Supabase 📝')
+    st.title('Streamlit Supabase ')
 
     # Show the supabase content
     supabase_expander = st.expander("Supabase Backend 🚄 ")
