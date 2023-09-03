@@ -87,15 +87,6 @@ def main():
         else:
             st.write(f"The operating system is: {os_platform} of distribution: {distribution_info[0]} {distribution_info[1]} without Docker installed 🐳")
 
-    # Show the author content
-    author_expander = st.expander("Author's Gthub Projects 🌏")
-    with author_expander:
-        url = "https://raw.githubusercontent.com/mattmajestic/mattmajestic/main/README.md"
-        response = requests.get(url)
-        readme_content = response.text if response.status_code == 200 else ""
-        iframe_html = f'<iframe srcdoc="{readme_content}</iframe>'
-        st.markdown(iframe_html, unsafe_allow_html=True)
-
         # Initialize session_state if not present
     if 'user' not in st.session_state:
         st.session_state.user = {}
@@ -118,6 +109,15 @@ def main():
         st_df = pd.DataFrame(st_db.data)
         st.write("streamlit table hosted in Supabase ")
         st.dataframe(st_df)
+        
+    # Show the author content
+    author_expander = st.expander("Author's Gthub Projects 🌏")
+    with author_expander:
+        url = "https://raw.githubusercontent.com/mattmajestic/mattmajestic/main/README.md"
+        response = requests.get(url)
+        readme_content = response.text if response.status_code == 200 else ""
+        iframe_html = f'<iframe srcdoc="{readme_content}</iframe>'
+        st.markdown(iframe_html, unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()
