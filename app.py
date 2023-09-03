@@ -10,30 +10,6 @@ supabase_url = os.environ.get("SUPABASE_URL")
 supabase_key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(supabase_url, supabase_key)
 
-def main():
-    st.title('Streamlit Supabase')
-
-    # Initialize session_state if not present
-    if 'user' not in st.session_state:
-        st.session_state.user = {}
-
-    # Check if the user is authenticated
-    user = st.session_state.user
-    if user and 'email' in user:
-        show_user_info(user)
-    else:
-        show_login_signup_forms()
-
-    # File Upload Section
-    st.header('File Upload')
-    upload_file()
-
-    # README Documentation Expander
-    with st.expander("README Documentation"):
-        with open("README.md", "r") as readme_file:
-            readme_content = readme_file.read()
-        st.markdown(readme_content)
-
 def show_user_info(user):
     with st.expander('User Information'):
         st.success(f'🎉 Logged in as: {user["email"]}')
@@ -80,6 +56,46 @@ def signup(email, password):
         st.success("🎉 Signup successful!")
     else:
         st.warning("Signup failed. Please try again.")
+
+def main():
+    st.title('Streamlit Supabase 📝')
+
+    # Show the supabase content
+    supabase_expander = st.expander("Supabase Backend 🚄 ")
+    with supabase_expander:
+        st.balloons()
+        st.write("kraken table hosted in Supabase ")
+        st.dataframe(coin_types_df)
+
+    # Initialize session_state if not present
+    if 'user' not in st.session_state:
+        st.session_state.user = {}
+
+    # Check if the user is authenticated
+    user = st.session_state.user
+    if user and 'email' in user:
+        show_user_info(user)
+    else:
+        show_login_signup_forms()
+
+    # File Upload Section
+    st.header('File Upload')
+    upload_file()
+
+    # README Documentation Expander
+    with st.expander("README Documentation"):
+        with open("README.md", "r") as readme_file:
+            readme_content = readme_file.read()
+        st.markdown(readme_content)
+
+    # Show the author content
+    author_expander = st.expander("Author's Gthub Projects 🌏")
+    with author_expander:
+        url = "https://raw.githubusercontent.com/mattmajestic/mattmajestic/main/README.md"
+        response = requests.get(url)
+        readme_content = response.text if response.status_code == 200 else ""
+        iframe_html = f'<iframe srcdoc="{readme_content}</iframe>'
+        st.markdown(iframe_html, unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()
