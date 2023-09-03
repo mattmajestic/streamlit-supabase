@@ -64,8 +64,11 @@ def main():
     supabase_expander = st.expander("Supabase Backend 🚄 ")
     with supabase_expander:
         st.balloons()
-        st.write("kraken table hosted in Supabase ")
-        st.dataframe(coin_types_df)
+        # Replace with supabase fetch
+        st_db = supabase_client.table('streamlit').select("*").execute()
+        st_df = pd.DataFrame(st_db.data)
+        st.write("streamlit table hosted in Supabase ")
+        st.dataframe(st_df)
 
     # Initialize session_state if not present
     if 'user' not in st.session_state:
