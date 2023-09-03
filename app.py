@@ -5,6 +5,7 @@ import pandas as pd
 import requests
 import docker
 import subprocess
+import platform
 
 # Set page title and favicon to an emoji
 st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")
@@ -86,10 +87,11 @@ def main():
         with open("README.md", "r") as readme_file:
             readme_content = readme_file.read()
         st.markdown(readme_content)
+        os_platform = platform.system()
         if is_docker_installed():
-            st.write("Docker is installed 🐳")
+            st.write(f"The operating system is: {os_platform} with Docker installed 🐳")
         else:
-            st.write("Docker is not installed 🐳")
+            st.write(f"The operating system is: {os_platform} without Docker installed 🐳")
 
     # Show the author content
     author_expander = st.expander("Author's Gthub Projects 🌏")
