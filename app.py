@@ -3,6 +3,7 @@ import os
 from supabase import create_client
 import pandas as pd
 import requests
+import docker
 
 # Set page title and favicon to an emoji
 st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")
@@ -72,29 +73,12 @@ def main():
         st.write("streamlit table hosted in Supabase ")
         st.dataframe(st_df)
 
-    # Initialize session_state if not present
-    if 'user' not in st.session_state:
-        st.session_state.user = {}
-
-    # Check if the user is authenticated
-    user = st.session_state.user
-
-    functions_expander = st.expander("Supabase functions for Streamlit 📈 ")
-    with functions_expander:
-        st.snow()
-        if user and 'email' in user:
-            show_user_info(user)
-        else:
-            show_login_signup_forms()
-        # File Upload Section
-        st.header('File Upload')
-        upload_file()
-
     # README Documentation Expander
     with st.expander("README Documentation"):
         with open("README.md", "r") as readme_file:
             readme_content = readme_file.read()
         st.markdown(readme_content)
+        st.write(print(os.environ))
 
     # Show the author content
     author_expander = st.expander("Author's Gthub Projects 🌏")
@@ -104,6 +88,19 @@ def main():
         readme_content = response.text if response.status_code == 200 else ""
         iframe_html = f'<iframe srcdoc="{readme_content}</iframe>'
         st.markdown(iframe_html, unsafe_allow_html=True)
+
+        # Initialize session_state if not present
+    if 'user' not in st.session_state:
+        st.session_state.user = {}
+    # Check if the user is authenticated
+    user = st.session_state.user
+    if user and 'email' in user:
+        show_user_info(user)
+    else:
+        show_login_signup_forms()
+    # File Upload Section
+    st.header('File Upload')
+    upload_file()
 
 if __name__ == '__main__':
     main()

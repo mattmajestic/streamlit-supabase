@@ -5,3 +5,4 @@ streamlit
 supabase
 pandas
 requests
+docker
