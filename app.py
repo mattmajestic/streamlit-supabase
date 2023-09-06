@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import os
 from supabase import create_client
 import pandas as pd
@@ -118,6 +119,14 @@ def main():
         readme_content = response.text if response.status_code == 200 else ""
         iframe_html = f'<iframe srcdoc="{readme_content}</iframe>'
         st.markdown(iframe_html, unsafe_allow_html=True)
+
+        # Show the BTC Pay Server
+    btc_expander = st.expander("Donate BTC 💸")
+    with btc_expander:
+        url = "https://mainnet.demo.btcpayserver.org/api/v1/invoices?storeId=4r8DKKKMkxGPVKcW9TXB2eta7PTVzzs192TWM3KuY52e&price=100&currency=USD&defaultPaymentMethod=BTC"
+        link='Pay wit BTC [via this link](https://mainnet.demo.btcpayserver.org/api/v1/invoices?storeId=4r8DKKKMkxGPVKcW9TXB2eta7PTVzzs192TWM3KuY52e&price=100&currency=USD&defaultPaymentMethod=BTC)'
+        st.markdown(link,unsafe_allow_html=True)
+        components.iframe(url,width = 300,height = 500, scrolling=True)
 
 if __name__ == '__main__':
     main()
