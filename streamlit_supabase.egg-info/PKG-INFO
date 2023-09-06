@@ -1,0 +1,6 @@
+Metadata-Version: 2.1
+Name: streamlit-supabase
+Version: 0.3
+Summary: Supabase functions in the Streamlit framework
+Author: Matt Majestic
+Project-URL: GitHub Repository, https://github.com/mattmajestic/streamlit-supabase
