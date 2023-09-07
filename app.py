@@ -133,8 +133,8 @@ def main():
         components.iframe(url,width = 300,height = 500, scrolling=True)
     feedback_expander = st.expander("Give Feedback 🤝")
     with feedback_expander:
-        st.markdown('''<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfkcEBiOklswShRGok5hjJQ1UTuGcT-ZB-6gBx6ehLCjlrRIQ/viewform?embedded=true" width="640" height="2197" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>''', unsafe_allow_html=True)
         st.dataframe(feedback_df)
+        st.markdown('''<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfkcEBiOklswShRGok5hjJQ1UTuGcT-ZB-6gBx6ehLCjlrRIQ/viewform?embedded=true" width="640" height="2197" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>''', unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()
