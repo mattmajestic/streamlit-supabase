@@ -13,6 +13,10 @@ import distro
 # Set page title and favicon to an emoji
 st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")
 
+r = requests.get(f'https://docs.google.com/spreadsheet/ccc?key=1ORu0GIhEBfyEtUr9GGFtSg_0QaxB2LuHEvxSpgSaZQs&output=csv')
+open('dataset.csv', 'wb').write(r.content)
+feedback_df = pd.read_csv('dataset.csv')
+
 # Supabase setup
 supabase_url = os.environ.get("SUPABASE_URL")
 supabase_key = os.environ.get("SUPABASE_KEY")
@@ -130,6 +134,7 @@ def main():
     feedback_expander = st.expander("Give Feedback 🤝")
     with feedback_expander:
         st.markdown('''<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfkcEBiOklswShRGok5hjJQ1UTuGcT-ZB-6gBx6ehLCjlrRIQ/viewform?embedded=true" width="640" height="2197" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>''', unsafe_allow_html=True)
+        st.dataframe(feedback_df)
 
 if __name__ == '__main__':
     main()
