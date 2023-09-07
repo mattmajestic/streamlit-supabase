@@ -1,16 +1,8 @@
 # Streamlit Supabase App 🚀
 
-Welcome to the Streamlit Supabase app! This app allows users to authenticate using Supabase and upload files to a Supabase storage bucket.
-
-## Live Demo
-
-Check out the live demo of the app: [Streamlit Supabase App](https://supabase-demo.streamlit.app/)
-
-![image](https://github.com/mattmajestic/streamlit-supabase/assets/33904170/61c3c7be-f73b-4efb-9b64-72e8d6415f76)
-
+Welcome to the Streamlit Supabase app! This app shows some basic usage of a `Supabase` backend within Streamlit deployed on `Streamlit Cloud`.
 
 ## Features
-
 - `User Login` authentication using Supabase
 - `User signup` using Supabase
 - `File upload` to a Supabase storage bucket
@@ -19,3 +11,9 @@ Check out the live demo of the app: [Streamlit Supabase App](https://supabase-de
 ## PyPI Package 🐍
 
 Check out the PyPI package: [pip install streamlit-supabase](https://pypi.org/project/streamlit-supabase/)
+
+## Live Demo
+
+Check out the live demo of the app: [Streamlit Supabase App](https://supabase-demo.streamlit.app/)
+
+![image](https://github.com/mattmajestic/streamlit-supabase/assets/33904170/61c3c7be-f73b-4efb-9b64-72e8d6415f76)
