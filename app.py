@@ -127,6 +127,9 @@ def main():
         link='Pay wit BTC [via this link](https://mainnet.demo.btcpayserver.org/api/v1/invoices?storeId=4r8DKKKMkxGPVKcW9TXB2eta7PTVzzs192TWM3KuY52e&price=100&currency=USD&defaultPaymentMethod=BTC)'
         st.markdown(link,unsafe_allow_html=True)
         components.iframe(url,width = 300,height = 500, scrolling=True)
+    feedback_expander = st.expander("Give Feedback 🤝")
+    with feedback_expander:
+        st.markdown('''<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfkcEBiOklswShRGok5hjJQ1UTuGcT-ZB-6gBx6ehLCjlrRIQ/viewform?embedded=true" width="640" height="2197" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>''', unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()
