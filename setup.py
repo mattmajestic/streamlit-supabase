@@ -8,7 +8,7 @@ setup(
     name="streamlit_supabase",
     version="0.5",
     long_description=long_description,
-    long_description_content_type='text/markdown'
+    long_description_content_type='text/markdown',
     author="Matt Majestic",
     packages=find_packages(),
     install_requires=[
