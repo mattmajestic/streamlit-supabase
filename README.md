@@ -12,6 +12,8 @@ Welcome to the Streamlit Supabase app! This app shows some basic usage of a `Sup
 
 Check out the PyPI package: [pip install streamlit-supabase](https://pypi.org/project/streamlit-supabase/)
 
+Github Action to deploy to PyPI: [publish-to-pypi.yml](https://github.com/mattmajestic/streamlit-supabase/blob/main/.github/workflows/publish-to-pypi.yml)
+
 ## Live Demo
 
 Check out the live demo of the app: [Streamlit Supabase App](https://supabase-demo.streamlit.app/)
