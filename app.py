@@ -11,7 +11,7 @@ import distro
 
 
 # Set page title and favicon to an emoji
-st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")
+st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒",layout="wide")
 
 # Supabase setup
 supabase_url = os.environ.get("SUPABASE_URL")
