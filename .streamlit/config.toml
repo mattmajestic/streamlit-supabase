@@ -1,5 +1,3 @@
 [theme]
-base="dark" # Set to "light" for light mode
-
-[browser]
-wideMode = true
+base="dark"
+font="monospace"
