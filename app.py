@@ -11,14 +11,14 @@ import distro
 import uuid
 from datetime import datetime
 
-
-# Set page title and favicon to an emoji
-st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")
-
 # Supabase setup
 supabase_url = os.environ.get("SUPABASE_URL")
 supabase_key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(supabase_url, supabase_key)
+
+r = requests.get(f'https://docs.google.com/spreadsheet/ccc?key=1ORu0GIhEBfyEtUr9GGFtSg_0QaxB2LuHEvxSpgSaZQs&output=csv')
+open('dataset.csv', 'wb').write(r.content)
+feedback_df = pd.read_csv('dataset.csv')
 
 def show_user_info(user):
     with st.expander('User Information'):
@@ -78,6 +78,9 @@ def signup(email, password):
         st.success("🎉 Signup successful!")
     else:
         st.warning("Signup failed. Please try again.")
+
+# Set page title and favicon to an emoji
+st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")
 
 def main():
     st.title('Streamlit Supabase 🔒')
