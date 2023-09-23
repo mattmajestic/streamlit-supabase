@@ -61,7 +61,7 @@ def upload_file():
 def streamlit_supabase_session():
     new_id = str(uuid.uuid4())
     time_now = datetime.now().isoformat()
-    supabase.table("streamlit_supabase_session").insert([{"id": new_id, "created_at": time_now}]).execute()
+    response = supabase.table("streamlit_supabase_session").insert([{"id": new_id, "created_at": time_now}]).execute()
 
 def main():
     st.title('Streamlit Supabase 🔒')
