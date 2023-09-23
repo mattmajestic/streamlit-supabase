@@ -8,14 +8,12 @@ import docker
 import subprocess
 import platform
 import distro
+import uuid
+from datetime import datetime
 
 
 # Set page title and favicon to an emoji
 st.set_page_config(page_title="Streamlit Supabase", page_icon="🔒")
-
-r = requests.get(f'https://docs.google.com/spreadsheet/ccc?key=1ORu0GIhEBfyEtUr9GGFtSg_0QaxB2LuHEvxSpgSaZQs&output=csv')
-open('dataset.csv', 'wb').write(r.content)
-feedback_df = pd.read_csv('dataset.csv')
 
 # Supabase setup
 supabase_url = os.environ.get("SUPABASE_URL")
@@ -60,21 +58,8 @@ def upload_file():
         
         os.remove(destination)
 
-def login(email, password):
-    data = supabase.auth.sign_in_with_password({"email": email, "password": password})
-    if 'user' in data:
-        st.session_state.user = data['user']
-        show_user_info(data['user'])
-        st.success("🎉 Login successful!")
-    else:
-        st.warning("Login failed. Please check your credentials.")
-
-def signup(email, password):
-    res = supabase.auth.sign_up({"email": email, "password": password})
-    if res['user']:
-        st.success("🎉 Signup successful!")
-    else:
-        st.warning("Signup failed. Please try again.")
+def streamlit_supabase_session():
+    response = supabase_client.table("streamlit_supabase_session").insert([{"id": str(uuid.uuid4()), "created_at": datetime.now().isoformat()}]).execute()
 
 def main():
     st.title('Streamlit Supabase 🔒')
