@@ -119,7 +119,7 @@ def main():
     with supabase_expander:
         st.balloons()
         # Replace with supabase fetch
-        st_db = supabase.table('streamlit').select("*").execute()
+        st_db = supabase.table('streamlit_supabase_session').select("*").execute()
         st_df = pd.DataFrame(st_db.data)
         st.write("streamlit table hosted in Supabase ")
         st.dataframe(st_df)
