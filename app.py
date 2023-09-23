@@ -63,6 +63,22 @@ def streamlit_supabase_session():
     time_now = datetime.now().isoformat()
     response = supabase.table("streamlit_supabase_session").insert([{"id": new_id, "created_at": time_now}]).execute()
 
+def login(email, password):
+    data = supabase.auth.sign_in_with_password({"email": email, "password": password})
+    if 'user' in data:
+        st.session_state.user = data['user']
+        show_user_info(data['user'])
+        st.success("🎉 Login successful!")
+    else:
+        st.warning("Login failed. Please check your credentials.")
+
+def signup(email, password):
+    res = supabase.auth.sign_up({"email": email, "password": password})
+    if res['user']:
+        st.success("🎉 Signup successful!")
+    else:
+        st.warning("Signup failed. Please try again.")
+
 def main():
     st.title('Streamlit Supabase 🔒')
 
