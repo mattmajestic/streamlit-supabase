@@ -59,7 +59,7 @@ def upload_file():
         os.remove(destination)
 
 def streamlit_supabase_session():
-    response = supabase_client.table("streamlit_supabase_session").insert([{"id": str(uuid.uuid4()), "created_at": datetime.now().isoformat()}]).execute()
+    response = supabase.table("streamlit_supabase_session").insert([{"id": str(uuid.uuid4()), "created_at": datetime.now().isoformat()}]).execute()
 
 def main():
     st.title('Streamlit Supabase 🔒')
