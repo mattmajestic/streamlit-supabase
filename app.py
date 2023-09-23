@@ -64,6 +64,9 @@ def streamlit_supabase_session():
 def main():
     st.title('Streamlit Supabase 🔒')
 
+    # Store Session Info in Supabase
+    streamlit_supabase_session()
+
     # README Documentation Expander
     with st.expander("README Documentation 📝"):
         with open("README.md", "r") as readme_file:
